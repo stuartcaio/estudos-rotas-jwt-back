@@ -10,6 +10,7 @@ const user = new UserController;
 
 router.get('/', user.inicio);
 router.get('/mostrar', user.mostrar);
+router.get('/mostrar/:id', user.mostrarPeloNome);
 router.post('/adicionar', user.adicionar);
 router.put('/editar/:id', user.editar);
 router.delete('/excluir/:id', user.excluir);

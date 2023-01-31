@@ -12,16 +12,18 @@ class UserController{
         });
     }
 
+    mostrarPeloNome = (req, res) => {
+        User.findOne({where: {nome: req.body.nome}}).then((usuario) => {
+            res.status(200).json(usuario);
+        });
+    }
+
     adicionar = (req, res) => {
         User.findOne({where: {email: req.body.email}}).then((existe) => {
             if(existe){
                 res.status(401).json({mensagem: 'Este e-mail já existe.'});
             } else{
-                User.create({
-                    nome: req.body.nome,
-                    email: req.body.email,
-                    senha: req.body.senha
-                }).then(() => {
+                User.create(req.body).then(() => {
                     res.status(201).json({mensagem: 'Usuário criado com sucesso.'});
                 }).catch(() => {
                     res.status(401).json({mensagem: 'Não foi possível criar o usuário.'});
